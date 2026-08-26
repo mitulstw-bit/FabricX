@@ -1,21 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ZZChecker Dashboard</title>
-  <meta name="description" content="ZZChecker Dashboard - Downloads, Tools, and Network Info">
+  <title>ZZChecker Dashboard & ULPxLOG Suite</title>
+  <meta name="description" content="ZZChecker Dashboard - Downloads, Utilities, Network Diagnostics & ULPxLOG Suite">
+  <meta name="theme-color" content="#020617">
+  <meta name="robots" content="index, follow">
+
+  <!-- OpenGraph Metadata for Vercel / GitHub Pages Social Cards -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ZZChecker Dashboard & ULPxLOG Suite">
+  <meta property="og:description" content="Official ZZChecker Suite - Downloads, Network Diagnostics, and Ayu X Hydra Auto Automation.">
+  <meta property="og:image" content="https://placehold.co/1200x630/020617/10b981?text=ZZChecker+Suite">
+
+  <!-- Twitter Card Metadata -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ZZChecker Dashboard & ULPxLOG Suite">
+  <meta name="twitter:description" content="Official ZZChecker Suite - Downloads, Network Diagnostics, and Ayu X Hydra Auto Automation.">
+  <meta name="twitter:image" content="https://placehold.co/1200x630/020617/10b981?text=ZZChecker+Suite">
+
+  <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1F3AF;</text></svg>">
+  
+  <!-- CDN Preconnects for high-speed edge hosting -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.tailwindcss.com">
+  <link rel="dns-prefetch" href="https://api.ipify.org">
+  <link rel="dns-prefetch" href="https://ipapi.co">
+
+  <!-- Tailwind CSS Engine -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Fira Code', 'monospace']
+          },
           animation: {
             'shimmer': 'shimmer 2.5s infinite linear',
             'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
-            'slide-in': 'slideIn 0.5s ease-out forwards',
-            'fade-in': 'fadeIn 0.4s ease-out forwards',
+            'slide-in': 'slideIn 0.4s ease-out forwards',
+            'fade-in': 'fadeIn 0.3s ease-out forwards',
+            'bounce-subtle': 'bounceSubtle 2s infinite',
           },
           keyframes: {
             shimmer: {
@@ -23,29 +54,35 @@
               '100%': { backgroundPosition: '200% 0' },
             },
             pulseGlow: {
-              '0%, 100%': { boxShadow: '0 0 5px rgba(251, 191, 36, 0.1)' },
-              '50%': { boxShadow: '0 0 20px rgba(251, 191, 36, 0.25)' },
+              '0%, 100%': { boxShadow: '0 0 8px rgba(251, 191, 36, 0.15)' },
+              '50%': { boxShadow: '0 0 24px rgba(251, 191, 36, 0.35)' },
             },
             slideIn: {
-              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '0%': { opacity: '0', transform: 'translateY(16px)' },
               '100%': { opacity: '1', transform: 'translateY(0)' },
             },
             fadeIn: {
               '0%': { opacity: '0', transform: 'scale(0.98)' },
               '100%': { opacity: '1', transform: 'scale(1)' },
+            },
+            bounceSubtle: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-4px)' }
             }
           }
         }
       }
     }
   </script>
+
+  <!-- Custom CSS Styles -->
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
     :root {
       --bg-primary: #020617;
-      --bg-card: rgba(15, 23, 42, 0.65);
-      --border-card: rgba(51, 65, 85, 0.4);
+      --bg-card: rgba(15, 23, 42, 0.7);
+      --border-card: rgba(51, 65, 85, 0.45);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -57,40 +94,36 @@
       min-height: 100vh;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
-
-    .font-mono { font-family: 'JetBrains Mono', 'Fira Code', monospace; }
 
     .glass {
       background: var(--bg-card);
-      backdrop-filter: blur(16px) saturate(1.2);
-      -webkit-backdrop-filter: blur(16px) saturate(1.2);
+      backdrop-filter: blur(18px) saturate(1.3);
+      -webkit-backdrop-filter: blur(18px) saturate(1.3);
       border: 1px solid var(--border-card);
+    }
+
+    .glass-pill {
+      background: rgba(30, 41, 59, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .card {
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      will-change: transform;
+      will-change: transform, box-shadow;
     }
     .card:hover {
       transform: translateY(-3px) scale(1.005);
-      border-color: rgba(148, 163, 184, 0.3);
+      border-color: rgba(148, 163, 184, 0.35);
     }
 
-    .glow-green:hover { box-shadow: 0 8px 32px rgba(16, 185, 129, 0.12); }
-    .glow-violet:hover { box-shadow: 0 8px 32px rgba(139, 92, 246, 0.12); }
-    .glow-rose:hover { box-shadow: 0 8px 32px rgba(244, 63, 94, 0.12); }
-    .glow-cyan:hover { box-shadow: 0 8px 32px rgba(6, 182, 212, 0.12); }
-    .glow-orange:hover { box-shadow: 0 8px 32px rgba(249, 115, 22, 0.12); }
-    .glow-amber:hover { box-shadow: 0 8px 32px rgba(245, 158, 11, 0.12); }
-    .glow-emerald:hover { box-shadow: 0 8px 32px rgba(16, 185, 129, 0.12); }
-
-    .shimmer-bg {
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.025), transparent);
-      background-size: 200% 100%;
-      animation: shimmer 2.5s infinite linear;
-    }
+    .glow-green:hover { box-shadow: 0 10px 36px rgba(16, 185, 129, 0.15); }
+    .glow-violet:hover { box-shadow: 0 10px 36px rgba(139, 92, 246, 0.15); }
+    .glow-rose:hover { box-shadow: 0 10px 36px rgba(244, 63, 94, 0.15); }
+    .glow-cyan:hover { box-shadow: 0 10px 36px rgba(6, 182, 212, 0.15); }
+    .glow-orange:hover { box-shadow: 0 10px 36px rgba(249, 115, 22, 0.15); }
+    .glow-amber:hover { box-shadow: 0 10px 36px rgba(245, 158, 11, 0.15); }
 
     .key-glow { animation: pulseGlow 3s ease-in-out infinite; }
 
@@ -105,29 +138,30 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.03) 45%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.03) 55%, transparent 60%);
+      background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.04) 45%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 55%, transparent 60%);
       transform: translateX(-100%);
       transition: transform 0.7s ease;
     }
     .sheen:hover::before { transform: translateX(100%); }
 
-    .stagger-1 { animation-delay: 0.05s; }
-    .stagger-2 { animation-delay: 0.1s; }
-    .stagger-3 { animation-delay: 0.15s; }
-    .stagger-4 { animation-delay: 0.2s; }
-    .stagger-5 { animation-delay: 0.25s; }
-    .stagger-6 { animation-delay: 0.3s; }
-    .stagger-7 { animation-delay: 0.35s; }
-
     .btn-action {
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .btn-action:hover {
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
     .btn-action:active {
       transform: translateY(0) scale(0.97);
+    }
+
+    .tab-btn {
+      transition: all 0.25s ease;
+    }
+    .tab-btn.active {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2));
+      border-color: rgba(16, 185, 129, 0.4);
+      color: #5eead4;
+      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.15);
     }
 
     ::-webkit-scrollbar { width: 6px; }
@@ -135,275 +169,526 @@
     ::-webkit-scrollbar-thumb { background: rgba(100, 116, 139, 0.3); border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: rgba(100, 116, 139, 0.5); }
 
-    ::selection { background: rgba(16, 185, 129, 0.2); color: #a7f3d0; }
+    ::selection { background: rgba(16, 185, 129, 0.25); color: #a7f3d0; }
   </style>
-<base target="_blank">
+  <base target="_blank">
 </head>
-<body>
+<body class="relative min-h-screen pb-12">
 
-  <!-- Background orbs -->
-  <div class="fixed inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-    <div class="absolute -top-32 -right-32 w-80 h-80 bg-emerald-500/[0.04] rounded-full blur-[100px]"></div>
-    <div class="absolute -bottom-32 -left-32 w-80 h-80 bg-cyan-500/[0.04] rounded-full blur-[100px]"></div>
-    <div class="absolute top-1/3 right-1/4 w-64 h-64 bg-violet-500/[0.03] rounded-full blur-[80px]"></div>
-    <div class="absolute bottom-1/4 left-1/3 w-64 h-64 bg-rose-500/[0.03] rounded-full blur-[80px]"></div>
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-orange-500/[0.02] rounded-full blur-[100px]"></div>
+  <div class="fixed inset-0 overflow-hidden pointer-events-none z-0" aria-hidden="true">
+    <div class="absolute -top-32 -right-32 w-96 h-96 bg-emerald-500/[0.05] rounded-full blur-[120px]"></div>
+    <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-cyan-500/[0.05] rounded-full blur-[120px]"></div>
+    <div class="absolute top-1/3 right-1/4 w-80 h-80 bg-violet-500/[0.04] rounded-full blur-[100px]"></div>
+    <div class="absolute bottom-1/3 left-1/4 w-80 h-80 bg-rose-500/[0.03] rounded-full blur-[100px]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:24px_24px] opacity-20"></div>
   </div>
 
-  <main class="relative z-10 p-4 sm:p-6 md:p-8">
-    <div class="max-w-5xl mx-auto space-y-5">
+  <!-- Toast Notification Dynamic Overlay -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-      <!-- Header -->
-      <header class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-1 animate-slide-in">
-        <div class="flex items-center gap-3">
-          <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-emerald-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-emerald-500/20">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+  <main class="relative z-10 p-4 sm:p-6 md:p-8">
+    <div class="max-w-5xl mx-auto space-y-6">
+
+      <!-- Navigation Header -->
+      <header class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-slate-800/60 animate-slide-in">
+        <div class="flex items-center gap-3.5">
+          <div class="h-11 w-11 rounded-2xl bg-gradient-to-br from-emerald-500 via-cyan-500 to-indigo-500 p-0.5 shadow-lg shadow-emerald-500/20">
+            <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-400"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
           </div>
-          <h1 class="text-2xl md:text-3xl font-black tracking-tight">
-            <span class="bg-gradient-to-r from-emerald-400 via-cyan-400 to-violet-400 bg-clip-text text-transparent">ZZChecker</span>
-            <span class="text-slate-500 font-bold"> Dashboard</span>
-          </h1>
+          <div>
+            <h1 class="text-2xl md:text-3xl font-black tracking-tight flex items-center gap-2">
+              <span class="bg-gradient-to-r from-emerald-400 via-cyan-400 to-violet-400 bg-clip-text text-transparent">ZZChecker</span>
+              <span class="text-slate-400 font-bold text-xl md:text-2xl">Suite</span>
+            </h1>
+            <p class="text-xs text-slate-500">Downloads, Utilities & Network Diagnostics</p>
+          </div>
         </div>
-        <div class="flex items-center gap-2 text-[11px] text-slate-600">
-          <span class="relative flex h-1.5 w-1.5">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-30"></span>
-            <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-600"></span>
-          </span>
-          <span>Live Dashboard</span>
-        </div>
+
+        <!-- Tab Switching Controls with Hash Routing -->
+        <nav aria-label="Main Navigation" class="flex items-center gap-2 glass-pill p-1.5 rounded-2xl border border-slate-700/40 self-start md:self-auto">
+          <button onclick="switchTab('dashboard')" id="tab-btn-dashboard" class="tab-btn active px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-2 text-slate-300 hover:text-white select-none">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+            <span>Dashboard</span>
+          </button>
+          <button onclick="switchTab('ulpxlog')" id="tab-btn-ulpxlog" class="tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-2 text-slate-300 hover:text-white select-none relative">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <span>ULPxLOG Section</span>
+            <span class="flex h-2 w-2 relative">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+            </span>
+          </button>
+        </nav>
       </header>
 
-      <!-- Key + IP Hero -->
-      <section class="grid grid-cols-1 lg:grid-cols-2 gap-4 animate-slide-in stagger-1">
+      <div id="page-dashboard" class="space-y-5 animate-fade-in">
 
-        <!-- Key Card -->
-        <div class="rounded-2xl glass p-5 md:p-6 card glow-amber">
-          <div class="flex items-center gap-2 mb-4">
-            <div class="h-8 w-8 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-400"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+        <!-- Key + IP Hero Cards -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+
+          <!-- Key Card -->
+          <div class="rounded-2xl glass p-5 md:p-6 card glow-amber">
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center gap-2">
+                <div class="h-8 w-8 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-400"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+                </div>
+                <h2 class="text-[11px] uppercase tracking-[0.15em] text-slate-400 font-bold">ZZChecker Key</h2>
+              </div>
+              <span class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded-full font-semibold">Active Key</span>
             </div>
-            <h2 class="text-[11px] uppercase tracking-[0.15em] text-slate-400 font-bold">ZZChecker Key</h2>
-          </div>
-          <div class="flex items-center gap-3">
-            <div class="flex-1 rounded-xl bg-slate-950/80 border border-amber-500/15 px-4 py-3.5 font-mono text-[13px] text-amber-300 tracking-wider truncate key-glow" id="key-text">
-              ZZCHECKER-YKJFU-MCYFH-PAIZI
+            <div class="flex items-center gap-3">
+              <div class="flex-1 rounded-xl bg-slate-950/80 border border-amber-500/15 px-4 py-3.5 font-mono text-[13px] text-amber-300 tracking-wider truncate key-glow" id="key-text">
+                ZZCHECKER-YKJFU-MCYFH-PAIZI
+              </div>
+              <button onclick="copyDashKey()" id="copy-btn" class="btn-action shrink-0 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-400 hover:bg-amber-500/20 hover:text-amber-300 hover:border-amber-500/40 px-5 py-3.5 font-semibold transition-all flex items-center gap-2 select-none">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                <span id="copy-label" class="text-sm">Copy Key</span>
+              </button>
             </div>
-            <button onclick="copyKey()" id="copy-btn" class="btn-action shrink-0 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-400 hover:bg-amber-500/20 hover:text-amber-300 hover:border-amber-500/40 px-5 py-3.5 font-semibold transition-all flex items-center gap-2 select-none">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-              <span id="copy-label" class="text-sm">Copy Key</span>
-            </button>
           </div>
+
+          <!-- IP Card -->
+          <div class="rounded-2xl glass p-5 md:p-6 card glow-emerald">
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center gap-2">
+                <div class="h-8 w-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-400"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                </div>
+                <h2 class="text-[11px] uppercase tracking-[0.15em] text-slate-400 font-bold">Your IP Address</h2>
+              </div>
+              <div class="flex items-center gap-1.5 text-[10px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full font-semibold">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span id="ping-badge">Ping: -- ms</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 sm:gap-3">
+              <div class="flex-1 rounded-xl bg-slate-950/80 border border-emerald-500/15 px-4 py-3.5 font-mono text-[13px] text-emerald-300 tracking-wider truncate" id="hero-ip">
+                Loading...
+              </div>
+              <button onclick="copyIP()" id="copy-ip-btn" class="btn-action shrink-0 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 hover:bg-emerald-500/20 hover:text-emerald-300 hover:border-emerald-500/40 px-4 py-3.5 font-semibold transition-all flex items-center gap-2 select-none" title="Copy IP">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                <span class="text-sm">Copy</span>
+              </button>
+              <button onclick="fetchIP()" class="btn-action shrink-0 rounded-xl bg-slate-700/30 border border-slate-600/30 text-slate-400 hover:bg-slate-700/50 hover:text-slate-200 hover:border-slate-500/40 p-3.5 font-semibold transition-all select-none" title="Refresh IP" aria-label="Refresh IP">
+                <svg id="refresh-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quick Filter Search Bar -->
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          </div>
+          <input type="text" id="dashboard-search" onkeyup="filterDashboardCards()" placeholder="Search tools, downloads, apps... (Press '/' or 'Ctrl+K')" class="w-full pl-10 pr-12 py-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 transition-all">
+          <span class="absolute inset-y-0 right-3 flex items-center pointer-events-none text-[10px] text-slate-600 font-mono">⌘K</span>
         </div>
 
-        <!-- IP Card -->
-        <div class="rounded-2xl glass p-5 md:p-6 card glow-emerald">
-          <div class="flex items-center gap-2 mb-4">
+        <!-- Autorun & Dashboard Section -->
+        <section class="rounded-2xl glass p-5 md:p-6 card">
+          <div class="flex items-center gap-2 mb-5">
+            <div class="h-8 w-8 rounded-lg bg-orange-500/10 border border-orange-500/20 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-orange-400"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h2 class="text-[11px] uppercase tracking-[0.15em] text-slate-400 font-bold">Autorun & Dashboard</h2>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+            <!-- Fabric Downloader (New GitHub Release Link) -->
+            <a href="https://github.com/Gorkis08/HotXCHKR/releases/download/1.2.4/SetupAutomation.exe" target="_blank" rel="noopener noreferrer"
+               class="searchable-card group sheen relative overflow-hidden rounded-xl bg-gradient-to-br from-orange-950/50 via-slate-900/30 to-slate-950/50 border border-orange-800/20 hover:border-orange-500/40 p-5 glow-orange card flex flex-col">
+              <div class="flex items-start gap-4 flex-1">
+                <div class="icon-box h-14 w-14 min-w-[3.5rem] rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-400 group-hover:bg-orange-500/15 group-hover:border-orange-500/30 transition-all">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                </div>
+                <div class="flex-1 min-w-0 pt-0.5">
+                  <div class="font-bold text-white text-lg group-hover:text-orange-300 transition-colors duration-200 card-title">Fabric Downloader</div>
+                  <div class="text-[13px] text-slate-500 mt-1 card-desc">SetupAutomation.exe (v1.2.4 Latest Release)</div>
+                  <div class="inline-flex items-center gap-1.5 mt-3 px-2.5 py-1 rounded-md bg-orange-500/10 border border-orange-500/20 text-[11px] font-medium text-orange-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                    Download Executable (v1.2.4)
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            <!-- ZZChecker Login -->
+            <a href="https://dash.checker.zzxgp.me/dashboard" target="_blank" rel="noopener noreferrer"
+               class="searchable-card group sheen relative overflow-hidden rounded-xl bg-gradient-to-br from-cyan-950/50 via-slate-900/30 to-slate-950/50 border border-cyan-800/20 hover:border-cyan-500/40 p-5 glow-cyan card flex flex-col">
+              <div class="flex items-start gap-4 flex-1">
+                <div class="icon-box h-14 w-14 min-w-[3.5rem] rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 group-hover:bg-cyan-500/15 group-hover:border-cyan-500/30 transition-all">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" x2="3" y1="12" y2="12"/></svg>
+                </div>
+                <div class="flex-1 min-w-0 pt-0.5">
+                  <div class="font-bold text-white text-lg group-hover:text-cyan-300 transition-colors duration-200 card-title">ZZChecker Login</div>
+                  <div class="text-[13px] text-slate-500 mt-1 card-desc">dash.checker.zzxgp.me</div>
+                  <div class="inline-flex items-center gap-1.5 mt-3 px-2.5 py-1 rounded-md bg-cyan-500/10 border border-cyan-500/20 text-[11px] font-medium text-cyan-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" x2="3" y1="12" y2="12"/></svg>
+                    Visit Dashboard
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- Downloads Section -->
+        <section class="rounded-2xl glass p-5 md:p-6 card">
+          <div class="flex items-center gap-2 mb-5">
             <div class="h-8 w-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-400"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-400"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
             </div>
-            <h2 class="text-[11px] uppercase tracking-[0.15em] text-slate-400 font-bold">Your IP Address</h2>
+            <h2 class="text-[11px] uppercase tracking-[0.15em] text-slate-400 font-bold">Downloads</h2>
           </div>
-          <div class="flex items-center gap-3">
-            <div class="flex-1 rounded-xl bg-slate-950/80 border border-emerald-500/15 px-4 py-3.5 font-mono text-[13px] text-emerald-300 tracking-wider truncate" id="hero-ip">
-              Loading...
-            </div>
-            <button onclick="copyIP()" id="copy-ip-btn" class="btn-action shrink-0 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 hover:bg-emerald-500/20 hover:text-emerald-300 hover:border-emerald-500/40 px-4 py-3.5 font-semibold transition-all flex items-center gap-2 select-none" title="Copy IP">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-              <span class="text-sm">Copy</span>
-            </button>
-            <button onclick="fetchIP()" class="btn-action shrink-0 rounded-xl bg-slate-700/30 border border-slate-600/30 text-slate-400 hover:bg-slate-700/50 hover:text-slate-200 hover:border-slate-500/40 p-3.5 font-semibold transition-all select-none" title="Refresh IP" aria-label="Refresh IP">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
-            </button>
-          </div>
-        </div>
-      </section>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-      <!-- Autorun & Dashboard (Moved under Key/IP) -->
-      <section class="rounded-2xl glass p-5 md:p-6 card animate-slide-in stagger-2">
-        <div class="flex items-center gap-2 mb-5">
-          <div class="h-8 w-8 rounded-lg bg-orange-500/10 border border-orange-500/20 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-orange-400"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
-          <h2 class="text-[11px] uppercase tracking-[0.15em] text-slate-400 font-bold">Autorun & Dashboard</h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-          <!-- Fabric Downloader -->
-          <a href="https://www.dropbox.com/scl/fi/i6xkdfgq8dkpdkrj2xem8/FabricDownloader.exe?rlkey=54azaaqq9q251bv61zdxums36&st=m0ibmznd&dl=1" target="_blank" rel="noopener noreferrer"
-             class="group sheen relative overflow-hidden rounded-xl bg-gradient-to-br from-orange-950/50 via-slate-900/30 to-slate-950/50 border border-orange-800/20 hover:border-orange-500/40 p-5 glow-orange card flex flex-col">
-            <div class="flex items-start gap-4 flex-1">
-              <div class="icon-box h-14 w-14 min-w-[3.5rem] rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-400 group-hover:bg-orange-500/15 group-hover:border-orange-500/30 transition-all">
-                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+            <!-- Xbox File -->
+            <a href="https://www.dropbox.com/scl/fi/ybu4o0a58pojpxiz9g1hd/FN-XBOX-NEXT-MAY.zip?rlkey=dpycaev9atxc56q1zxmarp450&st=fhdt1xop&dl=1" target="_blank" rel="noopener noreferrer"
+               class="searchable-card group sheen relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-950/50 via-slate-900/30 to-slate-950/50 border border-emerald-800/20 hover:border-emerald-500/40 p-5 glow-green card flex flex-col">
+              <div class="flex items-start gap-4 flex-1">
+                <div class="icon-box h-14 w-14 min-w-[3.5rem] rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500/15 group-hover:border-emerald-500/30 transition-all">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                </div>
+                <div class="flex-1 min-w-0 pt-0.5">
+                  <div class="font-bold text-white text-lg group-hover:text-emerald-300 transition-colors duration-200 card-title">Xbox File</div>
+                  <div class="text-[13px] text-slate-500 mt-1 card-desc">FN-XBOX-NEXT-MAY.zip</div>
+                  <div class="inline-flex items-center gap-1.5 mt-3 px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-[11px] font-medium text-emerald-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                    Download Archive
+                  </div>
+                </div>
               </div>
-              <div class="flex-1 min-w-0 pt-0.5">
-                <div class="font-bold text-white text-lg group-hover:text-orange-300 transition-colors duration-200">Fabric Downloader</div>
-                <div class="text-[13px] text-slate-500 mt-1">FabricDownloader.exe</div>
-                <div class="inline-flex items-center gap-1.5 mt-3 px-2.5 py-1 rounded-md bg-orange-500/8 border border-orange-500/15 text-[11px] font-medium text-orange-400">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                  Download
+            </a>
+
+            <!-- Extension -->
+            <a href="https://github.com/mitsox771/Metox/releases/download/V1.4/CustomProfile.zip" target="_blank" rel="noopener noreferrer"
+               class="searchable-card group sheen relative overflow-hidden rounded-xl bg-gradient-to-br from-violet-950/50 via-slate-900/30 to-slate-950/50 border border-violet-800/20 hover:border-violet-500/40 p-5 glow-violet card flex flex-col">
+              <div class="flex items-start gap-4 flex-1">
+                <div class="icon-box h-14 w-14 min-w-[3.5rem] rounded-xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400 group-hover:bg-violet-500/15 group-hover:border-violet-500/30 transition-all">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                </div>
+                <div class="flex-1 min-w-0 pt-0.5">
+                  <div class="font-bold text-white text-lg group-hover:text-violet-300 transition-colors duration-200 card-title">Extension</div>
+                  <div class="text-[13px] text-slate-500 mt-1 card-desc">CustomProfile.zip</div>
+                  <div class="inline-flex items-center gap-1.5 mt-3 px-2.5 py-1 rounded-md bg-violet-500/10 border border-violet-500/20 text-[11px] font-medium text-violet-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                    Download Profile
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- Legacy & Archive Section -->
+        <section class="rounded-2xl glass p-5 md:p-6 card">
+          <div class="flex items-center gap-2 mb-5">
+            <div class="h-8 w-8 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-400"><path d="M21 8v13H3V8"/><path d="M1 3h22v5H1z"/><path d="M10 12h4"/></svg>
+            </div>
+            <h2 class="text-[11px] uppercase tracking-[0.15em] text-slate-400 font-bold">Legacy & Archive Downloads</h2>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+            <!-- Legacy Fabric Downloader -->
+            <a href="https://www.dropbox.com/scl/fi/i6xkdfgq8dkpdkrj2xem8/FabricDownloader.exe?rlkey=54azaaqq9q251bv61zdxums36&st=m0ibmznd&dl=1" target="_blank" rel="noopener noreferrer"
+               class="searchable-card group sheen relative overflow-hidden rounded-xl bg-gradient-to-br from-amber-950/30 via-slate-900/30 to-slate-950/50 border border-amber-800/20 hover:border-amber-500/40 p-5 glow-amber card flex flex-col">
+              <div class="flex items-start gap-4 flex-1">
+                <div class="icon-box h-14 w-14 min-w-[3.5rem] rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 group-hover:bg-amber-500/15 group-hover:border-amber-500/30 transition-all">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                </div>
+                <div class="flex-1 min-w-0 pt-0.5">
+                  <div class="font-bold text-white text-lg group-hover:text-amber-300 transition-colors duration-200 card-title">Fabric Downloader (Legacy)</div>
+                  <div class="text-[13px] text-slate-500 mt-1 card-desc">FabricDownloader.exe (Old Dropbox Build)</div>
+                  <div class="inline-flex items-center gap-1.5 mt-3 px-2.5 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-[11px] font-medium text-amber-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                    Download Legacy Build
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            <!-- Archive info note -->
+            <div class="rounded-xl bg-slate-900/40 border border-slate-800 p-5 flex items-center gap-3">
+              <div class="h-10 w-10 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-center shrink-0 text-slate-400">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+              </div>
+              <div class="text-xs text-slate-400 leading-relaxed">
+                <strong class="text-slate-300 block mb-0.5">Archive Notice</strong>
+                Older builds are preserved for legacy system compatibility. Use the primary <span class="text-orange-400 font-semibold">SetupAutomation.exe (v1.2.4)</span> above for current installations.
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Tools Section -->
+        <section class="rounded-2xl glass p-5 md:p-6 card">
+          <div class="flex items-center gap-2 mb-5">
+            <div class="h-8 w-8 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-rose-400"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            </div>
+            <h2 class="text-[11px] uppercase tracking-[0.15em] text-slate-400 font-bold">Tools & Utilities</h2>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+            <!-- Merger -->
+            <a href="https://miri1408x-create.github.io/txt-merger" target="_blank" rel="noopener noreferrer"
+               class="searchable-card group sheen relative overflow-hidden rounded-xl bg-gradient-to-br from-rose-950/50 via-slate-900/30 to-slate-950/50 border border-rose-800/20 hover:border-rose-500/40 p-5 glow-rose card flex flex-col">
+              <div class="flex items-start gap-4 flex-1">
+                <div class="icon-box h-14 w-14 min-w-[3.5rem] rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400 group-hover:bg-rose-500/15 group-hover:border-rose-500/30 transition-all">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/><path d="m12 12-4-4"/><path d="m16 8-4 4"/><path d="m12 12 4 4"/><path d="m8 16 4-4"/></svg>
+                </div>
+                <div class="flex-1 min-w-0 pt-0.5">
+                  <div class="font-bold text-white text-lg group-hover:text-rose-300 transition-colors duration-200 card-title">Merger</div>
+                  <div class="text-[13px] text-slate-500 mt-1 card-desc">txt-merger tool</div>
+                  <div class="inline-flex items-center gap-1.5 mt-3 px-2.5 py-1 rounded-md bg-rose-500/10 border border-rose-500/20 text-[11px] font-medium text-rose-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+                    Open Merger Tool
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            <!-- Quick Jump to ULPxLOG -->
+            <div onclick="switchTab('ulpxlog')" class="cursor-pointer group sheen relative overflow-hidden rounded-xl bg-gradient-to-br from-indigo-950/50 via-slate-900/30 to-slate-950/50 border border-indigo-800/20 hover:border-indigo-500/40 p-5 glow-violet card flex flex-col">
+              <div class="flex items-start gap-4 flex-1">
+                <div class="icon-box h-14 w-14 min-w-[3.5rem] rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 group-hover:bg-indigo-500/15 group-hover:border-indigo-500/30 transition-all">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
+                <div class="flex-1 min-w-0 pt-0.5">
+                  <div class="font-bold text-white text-lg group-hover:text-indigo-300 transition-colors duration-200">ULPxLOG Suite</div>
+                  <div class="text-[13px] text-slate-500 mt-1">Ayu X Hydra Auto Setup</div>
+                  <div class="inline-flex items-center gap-1.5 mt-3 px-2.5 py-1 rounded-md bg-indigo-500/10 border border-indigo-500/20 text-[11px] font-medium text-indigo-400">
+                    Switch to ULPxLOG &rarr;
+                  </div>
                 </div>
               </div>
             </div>
-          </a>
+          </div>
+        </section>
 
-          <!-- ZZChecker Login -->
-          <a href="https://dash.checker.zzxgp.me/dashboard" target="_blank" rel="noopener noreferrer"
-             class="group sheen relative overflow-hidden rounded-xl bg-gradient-to-br from-cyan-950/50 via-slate-900/30 to-slate-950/50 border border-cyan-800/20 hover:border-cyan-500/40 p-5 glow-cyan card flex flex-col">
-            <div class="flex items-start gap-4 flex-1">
-              <div class="icon-box h-14 w-14 min-w-[3.5rem] rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 group-hover:bg-cyan-500/15 group-hover:border-cyan-500/30 transition-all">
-                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" x2="3" y1="12" y2="12"/></svg>
+        <!-- Network Info -->
+        <section class="rounded-2xl glass p-5 md:p-6 card">
+          <div class="flex items-center justify-between mb-5">
+            <div class="flex items-center gap-2">
+              <div class="h-8 w-8 rounded-lg bg-slate-500/10 border border-slate-500/20 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-400"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
               </div>
-              <div class="flex-1 min-w-0 pt-0.5">
-                <div class="font-bold text-white text-lg group-hover:text-cyan-300 transition-colors duration-200">ZZChecker Login</div>
-                <div class="text-[13px] text-slate-500 mt-1">dash.checker.zzxgp.me</div>
-                <div class="inline-flex items-center gap-1.5 mt-3 px-2.5 py-1 rounded-md bg-cyan-500/8 border border-cyan-500/15 text-[11px] font-medium text-cyan-400">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" x2="3" y1="12" y2="12"/></svg>
-                  Visit Dashboard
+              <h2 class="text-[11px] uppercase tracking-[0.15em] text-slate-400 font-bold">Network Information</h2>
+            </div>
+            <span class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Client-side Detection</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5" id="ip-details">
+            <div class="rounded-xl bg-slate-900/50 border border-slate-800 p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <div class="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.5)]"></div>
+                <span class="text-[10px] text-slate-500 uppercase tracking-[0.12em] font-bold">Public IP</span>
+              </div>
+              <div id="detail-ip" class="text-base font-mono font-bold text-emerald-300 tabular-nums truncate">-</div>
+            </div>
+            <div class="rounded-xl bg-slate-900/50 border border-slate-800 p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <div class="h-1.5 w-1.5 rounded-full bg-cyan-500 shadow-[0_0_6px_rgba(6,182,212,0.5)]"></div>
+                <span class="text-[10px] text-slate-500 uppercase tracking-[0.12em] font-bold">Country</span>
+              </div>
+              <div id="detail-country" class="text-base font-bold text-cyan-300 truncate">-</div>
+            </div>
+            <div class="rounded-xl bg-slate-900/50 border border-slate-800 p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <div class="h-1.5 w-1.5 rounded-full bg-violet-500 shadow-[0_0_6px_rgba(139,92,246,0.5)]"></div>
+                <span class="text-[10px] text-slate-500 uppercase tracking-[0.12em] font-bold">Region</span>
+              </div>
+              <div id="detail-region" class="text-base font-bold text-violet-300 truncate">-</div>
+            </div>
+            <div class="rounded-xl bg-slate-900/50 border border-slate-800 p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <div class="h-1.5 w-1.5 rounded-full bg-amber-500 shadow-[0_0_6px_rgba(245,158,11,0.5)]"></div>
+                <span class="text-[10px] text-slate-500 uppercase tracking-[0.12em] font-bold">City</span>
+              </div>
+              <div id="detail-city" class="text-base font-bold text-amber-300 truncate">-</div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <div id="page-ulpxlog" class="hidden space-y-6 animate-fade-in">
+
+        <!-- Top Status Bar -->
+        <section class="rounded-2xl glass p-5 border border-cyan-500/20 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-cyan-950/40 shadow-xl">
+          <div class="text-[11px] font-bold tracking-[0.2em] text-cyan-400 uppercase mb-3 flex items-center justify-between">
+            <span class="flex items-center gap-2">
+              <span class="h-2 w-2 rounded-full bg-cyan-400 animate-ping"></span>
+              ULPxLOG Section Status Header
+            </span>
+            <span class="text-slate-500 font-mono text-[10px]">AUTH & NETWORK MONITOR</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Key Status -->
+            <div class="flex items-center justify-between rounded-xl bg-slate-950/70 border border-amber-500/20 p-3.5">
+              <div class="flex items-center gap-3 min-w-0">
+                <div class="h-9 w-9 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-400"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+                </div>
+                <div class="min-w-0">
+                  <div class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">Active License Key</div>
+                  <div class="font-mono text-xs text-amber-300 font-bold truncate" id="ulpx-key-text">929 708 0957</div>
                 </div>
               </div>
+              <button onclick="copyUlpxKey()" class="px-3 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 hover:bg-amber-500/20 text-xs font-semibold shrink-0 transition-all">
+                Copy
+              </button>
             </div>
-          </a>
-        </div>
-      </section>
 
-      <!-- Downloads -->
-      <section class="rounded-2xl glass p-5 md:p-6 card animate-slide-in stagger-3">
-        <div class="flex items-center gap-2 mb-5">
-          <div class="h-8 w-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-400"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-          </div>
-          <h2 class="text-[11px] uppercase tracking-[0.15em] text-slate-400 font-bold">Downloads</h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-          <!-- Xbox File -->
-          <a href="https://www.dropbox.com/scl/fi/ybu4o0a58pojpxiz9g1hd/FN-XBOX-NEXT-MAY.zip?rlkey=dpycaev9atxc56q1zxmarp450&st=fhdt1xop&dl=1" target="_blank" rel="noopener noreferrer"
-             class="group sheen relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-950/50 via-slate-900/30 to-slate-950/50 border border-emerald-800/20 hover:border-emerald-500/40 p-5 glow-green card flex flex-col">
-            <div class="flex items-start gap-4 flex-1">
-              <div class="icon-box h-14 w-14 min-w-[3.5rem] rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500/15 group-hover:border-emerald-500/30 transition-all">
-                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-              </div>
-              <div class="flex-1 min-w-0 pt-0.5">
-                <div class="font-bold text-white text-lg group-hover:text-emerald-300 transition-colors duration-200">Xbox File</div>
-                <div class="text-[13px] text-slate-500 mt-1">FN-XBOX-NEXT-MAY.zip</div>
-                <div class="inline-flex items-center gap-1.5 mt-3 px-2.5 py-1 rounded-md bg-emerald-500/8 border border-emerald-500/15 text-[11px] font-medium text-emerald-400">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                  Download
+            <!-- IP Status -->
+            <div class="flex items-center justify-between rounded-xl bg-slate-950/70 border border-emerald-500/20 p-3.5">
+              <div class="flex items-center gap-3 min-w-0">
+                <div class="h-9 w-9 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-400"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                </div>
+                <div class="min-w-0">
+                  <div class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">Connected Client IP</div>
+                  <div class="font-mono text-xs text-emerald-300 font-bold truncate" id="ulpx-ip-text">Loading...</div>
                 </div>
               </div>
+              <button onclick="copyIP()" class="px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 hover:bg-emerald-500/20 text-xs font-semibold shrink-0 transition-all">
+                Copy
+              </button>
             </div>
-          </a>
+          </div>
+        </section>
 
-          <!-- Extension -->
-          <a href="https://github.com/mitsox771/Metox/releases/download/V1.4/CustomProfile.zip" target="_blank" rel="noopener noreferrer"
-             class="group sheen relative overflow-hidden rounded-xl bg-gradient-to-br from-violet-950/50 via-slate-900/30 to-slate-950/50 border border-violet-800/20 hover:border-violet-500/40 p-5 glow-violet card flex flex-col">
-            <div class="flex items-start gap-4 flex-1">
-              <div class="icon-box h-14 w-14 min-w-[3.5rem] rounded-xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400 group-hover:bg-violet-500/15 group-hover:border-violet-500/30 transition-all">
-                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-              </div>
-              <div class="flex-1 min-w-0 pt-0.5">
-                <div class="font-bold text-white text-lg group-hover:text-violet-300 transition-colors duration-200">Extension</div>
-                <div class="text-[13px] text-slate-500 mt-1">CustomProfile.zip</div>
-                <div class="inline-flex items-center gap-1.5 mt-3 px-2.5 py-1 rounded-md bg-violet-500/8 border border-violet-500/15 text-[11px] font-medium text-violet-400">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                  Download
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-      </section>
+        <!-- Big Featured Section: Ayu X Hydra Auto Download -->
+        <section class="rounded-3xl glass p-6 md:p-10 border border-emerald-500/30 bg-gradient-to-b from-slate-900/90 via-slate-950/90 to-slate-950 shadow-2xl relative overflow-hidden text-center">
+          
+          <!-- Background Glow Effect -->
+          <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-80 h-80 bg-emerald-500/15 rounded-full blur-[90px] pointer-events-none"></div>
 
-      <!-- Tools -->
-      <section class="rounded-2xl glass p-5 md:p-6 card animate-slide-in stagger-4">
-        <div class="flex items-center gap-2 mb-5">
-          <div class="h-8 w-8 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-rose-400"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          <!-- Section Header Badge -->
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold tracking-wide uppercase mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            Featured Release
           </div>
-          <h2 class="text-[11px] uppercase tracking-[0.15em] text-slate-400 font-bold">Tools</h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-          <!-- Merger -->
-          <a href="https://miri1408x-create.github.io/txt-merger" target="_blank" rel="noopener noreferrer"
-             class="group sheen relative overflow-hidden rounded-xl bg-gradient-to-br from-rose-950/50 via-slate-900/30 to-slate-950/50 border border-rose-800/20 hover:border-rose-500/40 p-5 glow-rose card flex flex-col">
-            <div class="flex items-start gap-4 flex-1">
-              <div class="icon-box h-14 w-14 min-w-[3.5rem] rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400 group-hover:bg-rose-500/15 group-hover:border-rose-500/30 transition-all">
-                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/><path d="m12 12-4-4"/><path d="m16 8-4 4"/><path d="m12 12 4 4"/><path d="m8 16 4-4"/></svg>
-              </div>
-              <div class="flex-1 min-w-0 pt-0.5">
-                <div class="font-bold text-white text-lg group-hover:text-rose-300 transition-colors duration-200">Merger</div>
-                <div class="text-[13px] text-slate-500 mt-1">txt-merger tool</div>
-                <div class="inline-flex items-center gap-1.5 mt-3 px-2.5 py-1 rounded-md bg-rose-500/8 border border-rose-500/15 text-[11px] font-medium text-rose-400">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
-                  Open Tool
-                </div>
-              </div>
-            </div>
-          </a>
+          <!-- Section Title -->
+          <h2 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-3">
+            Ayu X Hydra Auto
+          </h2>
+          <p class="text-slate-400 text-sm md:text-base max-w-xl mx-auto mb-8">
+            High-performance automation executable built for maximum speed and efficiency. Download the latest official build directly below.
+          </p>
 
-          <!-- Placeholder -->
-          <div class="rounded-xl bg-slate-800/20 border border-slate-700/20 p-5 flex items-center justify-center text-center">
-            <div>
-              <div class="h-10 w-10 rounded-full bg-slate-700/30 flex items-center justify-center mx-auto mb-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-500"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-              </div>
-              <div class="text-[13px] text-slate-500 font-medium">More tools coming soon</div>
-            </div>
-          </div>
-        </div>
-      </section>
+          <!-- BIG CENTERED DOWNLOAD BUTTON -->
+          <div class="flex flex-col items-center justify-center my-6">
+            <a href="https://github.com/Gorkis08/Wind/releases/download/v1.2.3/WindowsSetup.exe" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="btn-action group relative inline-flex items-center justify-center gap-4 px-10 py-5 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-slate-950 font-black text-lg md:text-xl shadow-[0_0_35px_rgba(16,185,129,0.35)] hover:shadow-[0_0_50px_rgba(16,185,129,0.6)] transition-all duration-300 w-full sm:w-auto min-w-[280px]">
+              
+              <!-- Download Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-y-0.5 transition-transform"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+              
+              <span>Download WindowsSetup.exe</span>
+            </a>
 
-      <!-- Network Info -->
-      <section class="rounded-2xl glass p-5 md:p-6 card animate-slide-in stagger-5">
-        <div class="flex items-center gap-2 mb-5">
-          <div class="h-8 w-8 rounded-lg bg-slate-500/10 border border-slate-500/20 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-400"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-          </div>
-          <h2 class="text-[11px] uppercase tracking-[0.15em] text-slate-400 font-bold">Network Info</h2>
-          <span class="ml-auto text-[10px] text-slate-600 uppercase tracking-wider font-semibold">Client-side detection</span>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5" id="ip-details">
-          <div class="rounded-xl bg-slate-800/30 border border-slate-700/25 p-4 shimmer-bg">
-            <div class="flex items-center gap-2 mb-2">
-              <div class="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.5)]"></div>
-              <span class="text-[10px] text-slate-500 uppercase tracking-[0.12em] font-bold">Public IP</span>
+            <!-- File details meta pill -->
+            <div class="mt-4 flex flex-wrap items-center justify-center gap-3 text-xs text-slate-400 font-mono">
+              <span class="flex items-center gap-1.5 bg-slate-900/80 px-3 py-1 rounded-lg border border-slate-800">
+                <span class="text-emerald-400 font-bold">Version:</span> v1.2.3
+              </span>
+              <span class="flex items-center gap-1.5 bg-slate-900/80 px-3 py-1 rounded-lg border border-slate-800">
+                <span class="text-emerald-400 font-bold">Platform:</span> Windows x64
+              </span>
+              <span class="flex items-center gap-1.5 bg-slate-900/80 px-3 py-1 rounded-lg border border-slate-800">
+                <span class="text-emerald-400 font-bold">Source:</span> GitHub Release
+              </span>
             </div>
-            <div id="detail-ip" class="text-base font-mono font-bold text-emerald-300 tabular-nums truncate">-</div>
           </div>
-          <div class="rounded-xl bg-slate-800/30 border border-slate-700/25 p-4 shimmer-bg">
-            <div class="flex items-center gap-2 mb-2">
-              <div class="h-1.5 w-1.5 rounded-full bg-cyan-500 shadow-[0_0_6px_rgba(6,182,212,0.5)]"></div>
-              <span class="text-[10px] text-slate-500 uppercase tracking-[0.12em] font-bold">Country</span>
+
+          <!-- Feature Bullets Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-10 pt-8 border-t border-slate-800/80 text-left">
+            <div class="p-4 rounded-2xl bg-slate-900/40 border border-slate-800/60">
+              <div class="h-8 w-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <h4 class="font-bold text-white text-sm mb-1">Fast Execution</h4>
+              <p class="text-xs text-slate-400">Optimized multi-threaded architecture designed for seamless task handling.</p>
             </div>
-            <div id="detail-country" class="text-base font-bold text-cyan-300 truncate">-</div>
-          </div>
-          <div class="rounded-xl bg-slate-800/30 border border-slate-700/25 p-4 shimmer-bg">
-            <div class="flex items-center gap-2 mb-2">
-              <div class="h-1.5 w-1.5 rounded-full bg-violet-500 shadow-[0_0_6px_rgba(139,92,246,0.5)]"></div>
-              <span class="text-[10px] text-slate-500 uppercase tracking-[0.12em] font-bold">Region</span>
+
+            <div class="p-4 rounded-2xl bg-slate-900/40 border border-slate-800/60">
+              <div class="h-8 w-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mb-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <h4 class="font-bold text-white text-sm mb-1">Direct Windows Setup</h4>
+              <p class="text-xs text-slate-400">Standalone `.exe` installer with quick auto-configuration built-in.</p>
             </div>
-            <div id="detail-region" class="text-base font-bold text-violet-300 truncate">-</div>
-          </div>
-          <div class="rounded-xl bg-slate-800/30 border border-slate-700/25 p-4 shimmer-bg">
-            <div class="flex items-center gap-2 mb-2">
-              <div class="h-1.5 w-1.5 rounded-full bg-amber-500 shadow-[0_0_6px_rgba(245,158,11,0.5)]"></div>
-              <span class="text-[10px] text-slate-500 uppercase tracking-[0.12em] font-bold">City</span>
+
+            <div class="p-4 rounded-2xl bg-slate-900/40 border border-slate-800/60">
+              <div class="h-8 w-8 rounded-lg bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400 mb-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <h4 class="font-bold text-white text-sm mb-1">Instant Setup</h4>
+              <p class="text-xs text-slate-400">No complex dependencies required. Simply download and launch.</p>
             </div>
-            <div id="detail-city" class="text-base font-bold text-amber-300 truncate">-</div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        <!-- Interactive Log Utilities Box -->
+        <section class="rounded-2xl glass p-5 md:p-6 card">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="h-8 w-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <h2 class="text-[11px] uppercase tracking-[0.15em] text-slate-400 font-bold">ULPxLOG Quick Cleaner & Formatter</h2>
+          </div>
+
+          <div class="space-y-3">
+            <textarea id="log-input" rows="4" placeholder="Paste raw combos or log entries here..." class="w-full rounded-xl bg-slate-950/80 border border-slate-800 p-3.5 font-mono text-xs text-slate-200 focus:outline-none focus:border-cyan-500/50 transition-all"></textarea>
+            
+            <div class="flex flex-wrap items-center gap-2">
+              <button onclick="cleanLogs('dedupe')" class="px-3.5 py-2 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 hover:bg-cyan-500/20 text-xs font-semibold transition-all">
+                Remove Duplicates
+              </button>
+              <button onclick="cleanLogs('trim')" class="px-3.5 py-2 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 hover:bg-slate-700 text-xs font-semibold transition-all">
+                Trim Whitespace
+              </button>
+              <button onclick="cleanLogs('extract-email')" class="px-3.5 py-2 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 hover:bg-slate-700 text-xs font-semibold transition-all">
+                Extract Emails
+              </button>
+              <button onclick="clearLogInput()" class="px-3.5 py-2 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 hover:bg-rose-500/20 text-xs font-semibold ml-auto transition-all">
+                Clear
+              </button>
+            </div>
+
+            <div id="log-stats" class="text-[11px] text-slate-500 font-mono pt-1">
+              Lines: 0 | Duplicates removed: 0
+            </div>
+          </div>
+        </section>
+
+      </div>
 
       <!-- Footer -->
-      <footer class="flex items-center justify-center gap-2 text-[11px] text-slate-600 pt-1 pb-4 animate-slide-in stagger-6">
-        <span class="relative flex h-1.5 w-1.5">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-30"></span>
-          <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-600"></span>
-        </span>
-        <span>IP fetched client-side</span>
-        <span class="text-slate-700">|</span>
-        <span>Auto-refresh on load</span>
+      <footer class="flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-500 pt-4 pb-4 border-t border-slate-800/60">
+        <div class="flex items-center gap-2">
+          <span class="relative flex h-1.5 w-1.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-40"></span>
+            <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+          </span>
+          <span>ZZChecker Live System</span>
+          <span class="text-slate-700">|</span>
+          <span>Hosted Edge CDN Ready</span>
+        </div>
+        <div class="font-mono text-[10px] text-slate-600">
+          System Time: <span id="time-display">--:--:--</span>
+        </div>
       </footer>
 
     </div>
@@ -414,6 +699,11 @@
       'use strict';
 
       const $ = (sel) => document.querySelector(sel);
+      const $$ = (sel) => document.querySelectorAll(sel);
+
+      const KEY_DASHBOARD = 'ZZCHECKER-YKJFU-MCYFH-PAIZI';
+      const KEY_ULPX = '929 708 0957';
+      let currentIP = '';
 
       const els = {
         heroIp: $('#hero-ip'),
@@ -424,20 +714,82 @@
         copyBtn: $('#copy-btn'),
         copyLabel: $('#copy-label'),
         keyText: $('#key-text'),
-        copyIpBtn: $('#copy-ip-btn')
+        copyIpBtn: $('#copy-ip-btn'),
+        ulpxIpText: $('#ulpx-ip-text'),
+        ulpxKeyText: $('#ulpx-key-text'),
+        refreshIcon: $('#refresh-icon'),
+        pingBadge: $('#ping-badge'),
+        timeDisplay: $('#time-display')
       };
 
-      const KEY = 'ZZCHECKER-YKJFU-MCYFH-PAIZI';
-      let currentIP = '';
+      // Toast Notification Engine
+      function showToast(message, type = 'success') {
+        const container = $('#toast-container');
+        if (!container) return;
+        
+        const toast = document.createElement('div');
+        const colors = type === 'success' 
+          ? 'bg-emerald-950/90 border-emerald-500/40 text-emerald-300' 
+          : 'bg-rose-950/90 border-rose-500/40 text-rose-300';
 
+        toast.className = `glass border ${colors} px-4 py-2.5 rounded-xl text-xs font-semibold shadow-lg backdrop-blur-md flex items-center gap-2 animate-slide-in pointer-events-auto`;
+        toast.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>${message}</span>
+        `;
+
+        container.appendChild(toast);
+        setTimeout(() => {
+          toast.style.opacity = '0';
+          toast.style.transform = 'translateY(10px)';
+          toast.style.transition = 'all 0.3s ease';
+          setTimeout(() => toast.remove(), 300);
+        }, 2500);
+      }
+
+      // Tab Switching with URL Hash Synchronization for Vercel / GitHub Pages Deep-linking
+      window.switchTab = function(tabId, updateHash = true) {
+        const dashPage = $('#page-dashboard');
+        const ulpxPage = $('#page-ulpxlog');
+        const dashBtn = $('#tab-btn-dashboard');
+        const ulpxBtn = $('#tab-btn-ulpxlog');
+
+        if (tabId === 'dashboard') {
+          dashPage.classList.remove('hidden');
+          ulpxPage.classList.add('hidden');
+          dashBtn.classList.add('active');
+          ulpxBtn.classList.remove('active');
+          if (updateHash && window.location.hash !== '#dashboard') {
+            history.replaceState(null, '', '#dashboard');
+          }
+        } else {
+          dashPage.classList.add('hidden');
+          ulpxPage.classList.remove('hidden');
+          dashBtn.classList.remove('active');
+          ulpxBtn.classList.add('active');
+          if (updateHash && window.location.hash !== '#ulpxlog') {
+            history.replaceState(null, '', '#ulpxlog');
+          }
+        }
+      };
+
+      // Load initial tab from URL hash if provided
+      function initHashRoute() {
+        const hash = window.location.hash.toLowerCase();
+        if (hash === '#ulpxlog' || hash === '#ulpx') {
+          window.switchTab('ulpxlog', false);
+        } else {
+          window.switchTab('dashboard', false);
+        }
+      }
+
+      window.addEventListener('hashchange', initHashRoute);
+
+      // Strictly HTTPS Endpoints for Vercel & GitHub Pages SSL compatibility
       const endpoints = [
         {
           url: 'https://ipapi.co/json/',
           parse: (d) => ({ ip: d.ip, country: d.country_name, region: d.region, city: d.city })
-        },
-        {
-          url: 'https://ip-api.com/json/?fields=status,message,query,country,regionName,city',
-          parse: (d) => ({ ip: d.query, country: d.country, region: d.regionName, city: d.city })
         },
         {
           url: 'https://api.myip.com',
@@ -450,117 +802,187 @@
       ];
 
       async function fetchIP() {
+        if (els.refreshIcon) els.refreshIcon.classList.add('animate-spin');
         els.heroIp.textContent = 'Loading...';
         els.detailIp.textContent = '-';
         els.detailCountry.textContent = '-';
         els.detailRegion.textContent = '-';
         els.detailCity.textContent = '-';
+        if (els.ulpxIpText) els.ulpxIpText.textContent = 'Loading...';
         currentIP = '';
+
+        const startTime = performance.now();
 
         for (const ep of endpoints) {
           try {
             const ctrl = new AbortController();
-            const t = setTimeout(() => ctrl.abort(), 5000);
+            const t = setTimeout(() => ctrl.abort(), 4000);
             const res = await fetch(ep.url, { signal: ctrl.signal, cache: 'no-store' });
             clearTimeout(t);
             if (!res.ok) continue;
             const data = await res.json();
             if (data.status === 'fail') continue;
 
+            const latency = Math.round(performance.now() - startTime);
             const p = ep.parse(data);
+            
             currentIP = p.ip;
             els.heroIp.textContent = p.ip;
             els.detailIp.textContent = p.ip;
             els.detailCountry.textContent = p.country || '-';
             els.detailRegion.textContent = p.region || '-';
             els.detailCity.textContent = p.city || '-';
+            if (els.ulpxIpText) els.ulpxIpText.textContent = p.ip;
+            if (els.pingBadge) els.pingBadge.textContent = `Ping: ${latency} ms`;
+
+            if (els.refreshIcon) els.refreshIcon.classList.remove('animate-spin');
             return;
-          } catch (e) { /* next */ }
+          } catch (e) { /* attempt fallback endpoint */ }
         }
 
         els.heroIp.textContent = 'Unavailable';
         els.detailIp.textContent = 'Unavailable';
-        currentIP = '';
+        if (els.ulpxIpText) els.ulpxIpText.textContent = 'Unavailable';
+        if (els.refreshIcon) els.refreshIcon.classList.remove('animate-spin');
       }
 
-      function copyKey() {
-        const doCopy = () => {
-          els.copyLabel.textContent = 'Copied!';
-          els.copyBtn.classList.remove('bg-amber-500/10', 'text-amber-400', 'border-amber-500/25');
-          els.copyBtn.classList.add('bg-emerald-500/12', 'text-emerald-400', 'border-emerald-500/35');
-          els.keyText.classList.add('border-emerald-500/35', 'text-emerald-300');
-          els.keyText.classList.remove('border-amber-500/15', 'text-amber-300');
-
-          setTimeout(() => {
-            els.copyLabel.textContent = 'Copy Key';
-            els.copyBtn.classList.remove('bg-emerald-500/12', 'text-emerald-400', 'border-emerald-500/35');
-            els.copyBtn.classList.add('bg-amber-500/10', 'text-amber-400', 'border-amber-500/25');
-            els.keyText.classList.remove('border-emerald-500/35', 'text-emerald-300');
-            els.keyText.classList.add('border-amber-500/15', 'text-amber-300');
-          }, 2000);
-        };
-
+      // Clipboard Helper with Fallback for iFrames / Restricted Clipboard Permissions
+      function executeCopy(text, onSuccess) {
         if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(KEY).then(doCopy).catch(fallbackCopy);
+          navigator.clipboard.writeText(text).then(onSuccess).catch(() => fallbackCopy(text, onSuccess));
         } else {
-          fallbackCopy();
-        }
-
-        function fallbackCopy() {
-          const ta = document.createElement('textarea');
-          ta.value = KEY;
-          ta.style.cssText = 'position:fixed;left:-9999px;top:0;opacity:0;';
-          document.body.appendChild(ta);
-          ta.select();
-          try { document.execCommand('copy'); doCopy(); } catch(e) {}
-          document.body.removeChild(ta);
+          fallbackCopy(text, onSuccess);
         }
       }
 
-      function copyIP() {
-        if (!currentIP || currentIP === 'Loading...' || currentIP === 'Unavailable') return;
+      function fallbackCopy(text, onSuccess) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.cssText = 'position:fixed;left:-9999px;top:0;opacity:0;';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); onSuccess(); } catch(e) {}
+        document.body.removeChild(ta);
+      }
 
-        const originalHTML = els.copyIpBtn.innerHTML;
-        const doCopy = () => {
-          els.copyIpBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span class="text-sm">Copied</span>';
-          els.copyIpBtn.classList.remove('bg-emerald-500/10', 'text-emerald-400', 'border-emerald-500/25');
-          els.copyIpBtn.classList.add('bg-emerald-500/20', 'text-emerald-300', 'border-emerald-500/40');
-
+      window.copyDashKey = function() {
+        executeCopy(KEY_DASHBOARD, () => {
+          if (els.copyLabel) els.copyLabel.textContent = 'Copied!';
+          showToast('ZZChecker Key copied!');
           setTimeout(() => {
-            els.copyIpBtn.innerHTML = originalHTML;
-            els.copyIpBtn.classList.remove('bg-emerald-500/20', 'text-emerald-300', 'border-emerald-500/40');
-            els.copyIpBtn.classList.add('bg-emerald-500/10', 'text-emerald-400', 'border-emerald-500/25');
+            if (els.copyLabel) els.copyLabel.textContent = 'Copy Key';
           }, 2000);
-        };
+        });
+      };
 
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(currentIP).then(doCopy).catch(fallbackCopy);
-        } else {
-          fallbackCopy();
+      window.copyUlpxKey = function() {
+        executeCopy(KEY_ULPX, () => {
+          showToast('ULPxLOG Key (929 708 0957) copied!');
+        });
+      };
+
+      window.copyKey = window.copyDashKey;
+
+      window.copyIP = function() {
+        if (!currentIP || currentIP === 'Loading...' || currentIP === 'Unavailable') {
+          showToast('No valid IP to copy', 'error');
+          return;
+        }
+        executeCopy(currentIP, () => {
+          showToast(`IP ${currentIP} copied!`);
+        });
+      };
+
+      // Search Filtering for Dashboard Cards
+      window.filterDashboardCards = function() {
+        const query = ($('#dashboard-search').value || '').toLowerCase().trim();
+        const cards = $$('.searchable-card');
+
+        cards.forEach(card => {
+          const title = card.querySelector('.card-title')?.textContent.toLowerCase() || '';
+          const desc = card.querySelector('.card-desc')?.textContent.toLowerCase() || '';
+          if (title.includes(query) || desc.includes(query)) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      };
+
+      // Keyboard Shortcuts (Ctrl+K or '/' to focus search)
+      document.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+          e.preventDefault();
+          const search = $('#dashboard-search');
+          if (search) { search.focus(); search.select(); }
+        } else if (e.key === 'Escape') {
+          const search = $('#dashboard-search');
+          if (search && document.activeElement === search) {
+            search.value = '';
+            window.filterDashboardCards();
+            search.blur();
+          }
+        }
+      });
+
+      // Log Cleaning Utility
+      window.cleanLogs = function(action) {
+        const input = $('#log-input');
+        if (!input || !input.value.trim()) return;
+
+        let lines = input.value.split('\n');
+        const initialCount = lines.length;
+
+        if (action === 'trim') {
+          lines = lines.map(l => l.trim()).filter(l => l.length > 0);
+        } else if (action === 'dedupe') {
+          lines = [...new Set(lines.map(l => l.trim()))].filter(l => l.length > 0);
+        } else if (action === 'extract-email') {
+          const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
+          const extracted = [];
+          lines.forEach(l => {
+            const matches = l.match(emailRegex);
+            if (matches) extracted.push(...matches);
+          });
+          lines = extracted;
         }
 
-        function fallbackCopy() {
-          const ta = document.createElement('textarea');
-          ta.value = currentIP;
-          ta.style.cssText = 'position:fixed;left:-9999px;top:0;opacity:0;';
-          document.body.appendChild(ta);
-          ta.select();
-          try { document.execCommand('copy'); doCopy(); } catch(e) {}
-          document.body.removeChild(ta);
+        input.value = lines.join('\n');
+        const removed = initialCount - lines.length;
+        $('#log-stats').textContent = `Lines: ${lines.length} | Items processed/removed: ${removed}`;
+        showToast('Logs formatted successfully!');
+      };
+
+      window.clearLogInput = function() {
+        const input = $('#log-input');
+        if (input) input.value = '';
+        const stats = $('#log-stats');
+        if (stats) stats.textContent = 'Lines: 0 | Duplicates removed: 0';
+      };
+
+      // Clock Display
+      function updateTime() {
+        const now = new Date();
+        if (els.timeDisplay) {
+          els.timeDisplay.textContent = now.toLocaleTimeString();
         }
       }
+      setInterval(updateTime, 1000);
+      updateTime();
 
       window.fetchIP = fetchIP;
-      window.copyKey = copyKey;
-      window.copyIP = copyIP;
 
+      // Initialize on Load
       if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', fetchIP);
+        document.addEventListener('DOMContentLoaded', () => {
+          initHashRoute();
+          fetchIP();
+        });
       } else {
+        initHashRoute();
         fetchIP();
       }
     })();
   </script>
-
 </body>
 </html>
